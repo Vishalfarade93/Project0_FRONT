@@ -1,0 +1,120 @@
+.display-status {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 408px;
+}
+
+.display-status h3 {
+  color: #333;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.status-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  border: 2px dashed #CD2C58;
+}
+
+.pi-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.pi-details h4 {
+  color: #333;
+  margin-bottom: 0.2rem;
+}
+
+.status-connected {
+  color: #4CAF50;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.current-display h5 {
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.active-display-info {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.display-preview {
+  width: 80px;
+  height: 60px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.display-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.display-details {
+  flex: 1;
+}
+
+.display-details strong {
+  color: #333;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.display-details span {
+  color: #666;
+  font-size: 0.8rem;
+}
+
+.no-display {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.no-display-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.display-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.stat {
+  text-align: center;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.stat-label {
+  display: block;
+  color: #666;
+  font-size: 0.8rem;
+  margin-bottom: 0.25rem;
+}
+
+.stat-value {
+  display: block;
+  color: #333;
+  font-weight: bold;
+  font-size: 0.9rem;
+}

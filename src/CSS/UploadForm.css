@@ -1,0 +1,86 @@
+.upload-form {
+  background: #eef2fb;
+  border-radius: 15px;
+  padding: 1.2rem;
+  height: fit-content;
+  box-shadow: 0 8px 32px rgba(127, 90, 240, 0.10);
+  position: sticky;
+  top: 100px;
+}
+
+.upload-form h3 {
+  color: #c51a4a;
+margin-bottom: 5px;
+  text-align: center;
+
+}
+
+.upload-area {
+  border: 2px dashed #c51a4a;
+  border-radius: 14px;
+  padding: 3rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(127, 90, 240, 0.045);
+  margin-top: 5px;
+}
+
+.upload-area:hover {
+  background: rgba(127, 90, 240, 0.10);
+  border-color: #2cb67d;
+}
+
+.title-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #c51a4a;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.upload-icon {
+  margin-top: 5px;
+  font-size: 2rem;
+  color: #2cb67d;
+}
+
+.upload-area p {
+  color: #232946;
+  font-weight: bold;
+  
+}
+
+.upload-area small {
+  color: #6d7a8b;
+}
+
+.upload-tips {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f5f7fa;
+  border-radius: 8px;
+}
+
+.upload-tips h4 {
+  color: #232946;
+  margin-bottom: 1rem;
+}
+
+.upload-tips ul {
+  list-style: none;
+  padding: 0;
+}
+
+.upload-tips li {
+  padding: 0.5rem 0;
+  color: #6d7a8b;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.upload-tips li:before {
+  content: '💡';
+  position: absolute;
+  left: 0;
+}
