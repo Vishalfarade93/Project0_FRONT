@@ -75,7 +75,7 @@ const ImageCard = ({ image, onSendToDisplay, onDeleteImage }) => {
           <button 
             className="btn btn-delete" 
             onClick={() => setShowDeleteConfirm(true)}
-            disabled={isActionLoading}
+            disabled={isActionLoading || image.isDisplayed}
           >
             <i className="bi bi-trash"></i> Delete
           </button>

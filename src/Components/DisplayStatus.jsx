@@ -2,51 +2,56 @@ import React from 'react';
 import '../CSS/DisplayStatus.css';
 import raspberryPiLogo from '../assets/rpi.svg';
 
-const DisplayStatus = () => {
+const DisplayStatus = ({ status }) => {
+
+  if (!status) {
+    return (
+      <div className="display-status">
+        <h3>Display Status</h3>
+        <div className="status-card">
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const isOnline = status.online;
+  const lastSeen = status.lastSeen
+    ? new Date(status.lastSeen).toLocaleTimeString()
+    : "Unknown";
+
   return (
     <div className="display-status">
       <h3>Display Status</h3>
+
       <div className="status-card">
         <div className="pi-info">
           <div className="pi-icon">
-            <img style={{height:'60px'}} src={raspberryPiLogo} alt="Raspberry Pi Logo" />
+            <img style={{ height: '60px' }} src={raspberryPiLogo} alt="Raspberry Pi Logo" />
           </div>
+
           <div className="pi-details">
-            <h4>Raspberry Pi Display</h4>
-            <span className="status-connected">🟢 Connected</span>
+            <h4>{status.deviceId}</h4>
+            <span className={isOnline ? "status-connected" : "status-disconnected"}>
+              {isOnline ? <><i className="bi bi-wifi"></i> Online</> : <><i className="bi bi-wifi-off"></i> Offline</>}
+            </span>
           </div>
         </div>
-        
-        {/* <div className="current-display">
-          <h5>Currently Displaying:</h5>
-          {currentDisplay ? (
-            <div className="active-display-info">
-              <div className="display-preview">
-                <img src={currentDisplay.url} alt={currentDisplay.name} />
-              </div>
-              <div className="display-details">
-                <strong>{currentDisplay.name}</strong>
-                <span>Since: {currentDisplay.uploadedAt}</span>
-              </div>
-            </div>
-          ) : (
-            <div className="no-display">
-              <div className="no-display-icon">📺</div>
-              <p>No image currently on display</p>
-            </div>
-          )}
-        </div> */}
-        
+
         <div className="display-stats">
+
+          {/* CHANGED — DEPARTMENT FIELD */}
           <div className="stat">
-            <span className="stat-label">Uptime</span>
-            <span className="stat-value">24/7</span>
+            <span className="stat-label">Department</span>
+            <span className="stat-value">{status.department || "Unknown"}</span>
           </div>
+
           <div className="stat">
-            <span className="stat-label">Last Update</span>
-            <span className="stat-value">{new Date().toLocaleTimeString()}</span>
+            <span className="stat-label">Last Seen</span>
+            <span className="stat-value">{lastSeen}</span>
           </div>
         </div>
+
       </div>
     </div>
   );

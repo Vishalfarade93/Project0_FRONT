@@ -36,7 +36,12 @@
 .status-connected {
   color: #4CAF50;
   font-weight: bold;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
+}
+.status-disconnected {
+  color: #F44336;
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
 .current-display h5 {
