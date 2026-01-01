@@ -4,6 +4,7 @@ import UploadForm from './Components/UploadForm';
 import ImageLibrary from './Components/ImageLibrary';
 import DisplayStatus from './Components/DisplayStatus';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import logo from './assets/logo.png';
 import axios from 'axios';
 
 function App() {
@@ -29,7 +30,8 @@ function App() {
         title: item.title || "Untitled",
         url: item.filePath,
         isDisplayed: item.displayed,
-        processing: item.filePath === "uploading"
+        processing: item.filePath === "uploading",
+        mediaType: item.mediaType
       }));
 
       backendImages.reverse();
@@ -57,7 +59,7 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleImageUpload = async (file, title) => {
+  const handleUpload = async (file, title) => {
     setUploading(true);
     try {
       const formData = new FormData();
@@ -116,7 +118,8 @@ function App() {
 
       <header className="app-header">
         <div className="header-content">
-          <h1>C</h1><p>I</p>
+          <img src={logo} alt="logo" />
+          
         </div>
         <div className="iot-badge">
           <i className="bi bi-wifi"></i><span>IoT Connected</span>
@@ -125,7 +128,7 @@ function App() {
 
       <div className="app-container">
         <div className="sidebar">
-          <UploadForm onImageUpload={handleImageUpload} />
+          <UploadForm onMediaUpload={handleUpload} />
           <DisplayStatus status={piStatus} />
         </div>
 

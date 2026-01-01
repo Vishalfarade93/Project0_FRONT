@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import '../CSS/ImageCard.css';
+import React, { useState } from "react";
+import "../CSS/ImageCard.css";
 
 const ImageCard = ({ image, onSendToDisplay, onDeleteImage }) => {
   const [showPreview, setShowPreview] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [isActionLoading, setIsActionLoading] = useState(false);
+
+  const isVideo = image.mediaType === "VIDEO";
 
   const handleSendToDisplayClick = async () => {
     setIsActionLoading(true);
@@ -27,17 +29,37 @@ const ImageCard = ({ image, onSendToDisplay, onDeleteImage }) => {
 
   return (
     <>
-      <div className={`image-card ${image.isDisplayed ? 'active-display' : ''}`}>
+      <div className={`image-card ${image.isDisplayed ? "active-display" : ""}`}>
         <div className="card-header">
           <span className="status-indicator">
-            {image.isDisplayed 
-              ? <><i className="bi bi-broadcast" style={{ color: "#4CAF50" }}></i> On Display</>
-              : <><i className="bi bi-circle" style={{ color: "#666" }}></i> Ready</>}
+            {image.isDisplayed ? (
+              <>
+                <i className="bi bi-broadcast" style={{ color: "#4CAF50" }}></i>{" "}
+                On Display
+              </>
+            ) : (
+              <>
+                <i className="bi bi-circle" style={{ color: "#666" }}></i>{" "}
+                Ready
+              </>
+            )}
           </span>
         </div>
 
+        {/* PREVIEW THUMBNAIL */}
         <div className="image-preview">
-          <img src={image.url} alt={image.name} />
+          {isVideo ? (
+            <video
+              src={image.url}
+              muted
+              loop
+              playsInline
+              className="preview-video"
+            />
+          ) : (
+            <img src={image.url} alt={image.name} />
+          )}
+
           {isActionLoading && (
             <div className="action-overlay">
               <div className="action-spinner"></div>
@@ -49,31 +71,42 @@ const ImageCard = ({ image, onSendToDisplay, onDeleteImage }) => {
           <h4 className="file-title">{image.title}</h4>
           <div className="file-info">
             <span>{image.name}</span>
+            <span className="media-type-badge">
+              {isVideo ? "VIDEO" : "IMAGE"}
+            </span>
           </div>
         </div>
 
         <div className="card-actions">
-          <button 
-            className="btn btn-preview" 
+          <button
+            className="btn btn-preview"
             onClick={() => setShowPreview(true)}
             disabled={isActionLoading}
           >
             <i className="bi bi-eye"></i> Preview
           </button>
 
-          <button 
-            className={`btn ${image.isDisplayed ? 'btn-remove' : 'btn-send'}`}
+          <button
+            className={`btn ${
+              image.isDisplayed ? "btn-remove" : "btn-send"
+            }`}
             onClick={handleSendToDisplayClick}
             disabled={isActionLoading}
           >
-            <i className={`bi ${image.isDisplayed ? 'bi-stop-circle' : 'bi-play-circle'}`}></i>
-            {isActionLoading ? "Processing..." : (
-              image.isDisplayed ? "Remove from Display" : "Send to Display"
-            )}
+            <i
+              className={`bi ${
+                image.isDisplayed ? "bi-stop-circle" : "bi-play-circle"
+              }`}
+            ></i>
+            {isActionLoading
+              ? "Processing..."
+              : image.isDisplayed
+              ? "Remove from Display"
+              : "Send to Display"}
           </button>
 
-          <button 
-            className="btn btn-delete" 
+          <button
+            className="btn btn-delete"
             onClick={() => setShowDeleteConfirm(true)}
             disabled={isActionLoading || image.isDisplayed}
           >
@@ -82,21 +115,43 @@ const ImageCard = ({ image, onSendToDisplay, onDeleteImage }) => {
         </div>
       </div>
 
-    
+      {/* PREVIEW MODAL */}
       {showPreview && (
         <div className="preview-modal" onClick={() => setShowPreview(false)}>
-          <div className="preview-content" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="preview-content"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="preview-header">
               <h3>Preview: {image.title}</h3>
-              <button className="close-btn" onClick={() => setShowPreview(false)}>
+              <button
+                className="close-btn"
+                onClick={() => setShowPreview(false)}
+              >
                 <i className="bi bi-x-lg"></i>
               </button>
             </div>
-            <div className="preview-image">
-              <img src={image.url} alt={image.name} />
-            </div>
+
+          <div className="preview-media-container">
+  {isVideo ? (
+    <video
+      src={image.url}
+      controls
+      autoPlay
+      controlsList="nodownload"  
+      className="preview-media video-controls-visible"  
+    />
+  ) : (
+    <img src={image.url} alt={image.name} className="preview-media" />
+  )}
+</div>
+
+
             <div className="preview-footer">
-              <button className="btn btn-close-preview" onClick={() => setShowPreview(false)}>
+              <button
+                className="btn btn-close-preview"
+                onClick={() => setShowPreview(false)}
+              >
                 Close Preview
               </button>
             </div>
@@ -104,44 +159,57 @@ const ImageCard = ({ image, onSendToDisplay, onDeleteImage }) => {
         </div>
       )}
 
-      {/* Delete Confirmation Modal */}
+      {/* DELETE CONFIRMATION */}
       {showDeleteConfirm && (
-        <div className="preview-modal" onClick={() => setShowDeleteConfirm(false)}>
-          <div className="preview-content delete-confirm-modal" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="preview-modal"
+          onClick={() => setShowDeleteConfirm(false)}
+        >
+          <div
+            className="preview-content delete-confirm-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="preview-header">
-              <h3><i className="bi bi-exclamation-triangle" style={{ color: '#f44336' }}></i> Confirm Delete</h3>
-              <button className="close-btn" onClick={() => setShowDeleteConfirm(false)}>
+              <h3>
+                <i
+                  className="bi bi-exclamation-triangle"
+                  style={{ color: "#f44336" }}
+                ></i>{" "}
+                Confirm Delete
+              </h3>
+              <button
+                className="close-btn"
+                onClick={() => setShowDeleteConfirm(false)}
+              >
                 <i className="bi bi-x-lg"></i>
               </button>
             </div>
+
             <div className="delete-confirm-body">
-              <p>Are you sure you want to delete <strong>"{image.title}"</strong>?</p>
-              <p className="warning-text">This action cannot be undone.</p>
+              <p>
+                Are you sure you want to delete{" "}
+                <strong>"{image.title}"</strong>?
+              </p>
+              <p className="warning-text">
+                This action cannot be undone.
+              </p>
             </div>
+
             <div className="delete-confirm-actions">
-              <button 
-                className="btn btn-cancel" 
+              <button
+                className="btn btn-cancel"
                 onClick={() => setShowDeleteConfirm(false)}
                 disabled={isActionLoading}
               >
                 Cancel
               </button>
-              <button 
-                className="btn btn-confirm-delete" 
+
+              <button
+                className="btn btn-confirm-delete"
                 onClick={handleDeleteClick}
                 disabled={isActionLoading}
               >
-                {isActionLoading ? (
-                  <>
-                    <div className="button-spinner"></div>
-                    Deleting...
-                  </>
-                ) : (
-                  <>
-                    <i className="bi bi-trash"></i>
-                    Yes, Delete
-                  </>
-                )}
+                {isActionLoading ? "Deleting..." : "Yes, Delete"}
               </button>
             </div>
           </div>
